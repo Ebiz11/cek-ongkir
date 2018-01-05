@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "23.0.0"
+   "name": "Cek Ongkir",
+   "icon": "./ebiz.png",
+   "version": "1.0.0",
+   "slug": "your-app-slug",
+   "sdkVersion": "23.0.0",
+   "ios": {
+     "bundleIdentifier": "com.yourcompany.yourappname"
+   },
+   "android": {
+     "package": "com.yourcompany.yourappname"
+   }
   }
 }

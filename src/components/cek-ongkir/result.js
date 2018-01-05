@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button, ScrollView } from 'react-native';
+import { View, StyleSheet, Button, ScrollView } from 'react-native';
+
+import { Container, Header, Content, Card, CardItem, Text, Body } from 'native-base';
 
 const result = [];
 export default class Result extends Component {
@@ -45,31 +47,43 @@ export default class Result extends Component {
   render() {
 
     return (
-      <ScrollView>
-      <View style={styles.container}>
-      <Text style={styles.labels}>Origin</Text>
-      <Text/>
-      <Text>City: {this.props.navigation.state.params.rajaongkir.origin_details.city_name}</Text>
-      <Text>Province: {this.props.navigation.state.params.rajaongkir.origin_details.province}</Text>
-      <Text/>
-      <Text style={styles.labels}>Destination</Text>
-      <Text/>
-      <Text>City: {this.props.navigation.state.params.rajaongkir.destination_details.city_name}</Text>
-      <Text>Province: {this.props.navigation.state.params.rajaongkir.destination_details.province}</Text>
-      <Text/>
-      <Text style={styles.labels}>Weight</Text>
-      <Text/>
-      <Text>{this.props.navigation.state.params.rajaongkir.query.weight} Gram</Text>
-      <Text/>
-      <Text style={styles.labels}>Courier</Text>
-      <Text/>
-      <Text>{this.props.navigation.state.params.rajaongkir.results[0].name}</Text>
-      <Text/>
-      <Text style={styles.labels}>Result:</Text>
+      <Container>
+        <Content>
+          <Card>
+            <CardItem header>
+            </CardItem>
+            <CardItem>
+              <Body>
+                <ScrollView>
+                <Text/>
+                <Text>City: {this.props.navigation.state.params.rajaongkir.origin_details.city_name}</Text>
+                <Text>Province: {this.props.navigation.state.params.rajaongkir.origin_details.province}</Text>
+                <Text/>
+                <Text style={styles.labels}>Destination</Text>
+                <Text/>
+                <Text>City: {this.props.navigation.state.params.rajaongkir.destination_details.city_name}</Text>
+                <Text>Province: {this.props.navigation.state.params.rajaongkir.destination_details.province}</Text>
+                <Text/>
+                <Text style={styles.labels}>Weight</Text>
+                <Text/>
+                <Text>{this.props.navigation.state.params.rajaongkir.query.weight} Gram</Text>
+                <Text/>
+                <Text style={styles.labels}>Courier</Text>
+                <Text/>
+                <Text>{this.props.navigation.state.params.rajaongkir.results[0].name}</Text>
+                <Text/>
+                <Text style={styles.labels}>Result:</Text>
 
-        {this.dataResult()}
-      </View>
-      </ScrollView>
+                {this.dataResult()}
+
+                </ScrollView>
+              </Body>
+            </CardItem>
+            <CardItem footer>
+            </CardItem>
+         </Card>
+        </Content>
+      </Container>
     );
   }
 }
