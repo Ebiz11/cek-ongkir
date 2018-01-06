@@ -31,69 +31,72 @@ export default class Result extends Component {
   }
 
   render() {
-    let result = [];
 
     if (this.state.loaded) {
 
-      for (var i = 0; i < rajaongkir.results[0].costs.length; i++) {
-        result.push(
-          <View key = {i}>
-            <Text/>
-            <Text>Service: {rajaongkir.results[0].costs[i].service}</Text>
-            <Text>Description: {rajaongkir.results[0].costs[i].description}</Text>
-            <Text>Rp.{rajaongkir.results[0].costs[i].cost[0].value}</Text>
-            <Text>Etd: {rajaongkir.results[0].costs[i].cost[0].etd}</Text>
-            <Text/>
-            <Text/>
-          </View>
-          )
-      }
-    }
+      let result = [];
 
-    return (
-      <Container>
-        {
-          this.state.loaded? (
-            <Content>
-              <Card>
-                <CardItem header>
-                </CardItem>
-                <CardItem>
-                  <Body>
-                    <ScrollView>
-                    <Text style={styles.labels}>Origin</Text>
-                    <Text/>
-                    <Text>City: {rajaongkir.origin_details.city_name}</Text>
-                    <Text>Province: {rajaongkir.origin_details.province}</Text>
-                    <Text/>
-                    <Text style={styles.labels}>Destination</Text>
-                    <Text/>
-                    <Text>City: {rajaongkir.destination_details.city_name}</Text>
-                    <Text>Province: {rajaongkir.destination_details.province}</Text>
-                    <Text/>
-                    <Text style={styles.labels}>Weight</Text>
-                    <Text/>
-                    <Text>{rajaongkir.query.weight} Gram</Text>
-                    <Text/>
-                    <Text style={styles.labels}>Courier</Text>
-                    <Text/>
-                    <Text>{rajaongkir.results[0].name}</Text>
-                    <Text/>
-                    <Text style={styles.labels}>Result:</Text>
-                    { result }
-                    </ScrollView>
-                  </Body>
-                </CardItem>
-                <CardItem footer>
-                </CardItem>
-             </Card>
-            </Content>
-          ) : (
-            <Spinner/>
-          )
+      if (rajaongkir.results[0].costs.length == 0) {
+        result.push(<View key = "1"><Text>No Data</Text></View>)
+      }else{
+        for (var i = 0; i < rajaongkir.results[0].costs.length; i++) {
+          result.push(
+            <View key = {i}>
+              <Text/>
+              <Text>Service: {rajaongkir.results[0].costs[i].service}</Text>
+              <Text>Description: {rajaongkir.results[0].costs[i].description}</Text>
+              <Text>Rp.{rajaongkir.results[0].costs[i].cost[0].value}</Text>
+              <Text>Etd: {rajaongkir.results[0].costs[i].cost[0].etd}</Text>
+              <Text/>
+              <Text/>
+            </View>
+            )
         }
-      </Container>
-    );
+      }
+
+      return (
+        <Container>
+          <Content>
+            <Card>
+              <CardItem header>
+              </CardItem>
+              <CardItem>
+                <Body>
+                  <ScrollView>
+                  <Text style={styles.labels}>Origin</Text>
+                  <Text/>
+                  <Text>City: {rajaongkir.origin_details.city_name}</Text>
+                  <Text>Province: {rajaongkir.origin_details.province}</Text>
+                  <Text/>
+                  <Text style={styles.labels}>Destination</Text>
+                  <Text/>
+                  <Text>City: {rajaongkir.destination_details.city_name}</Text>
+                  <Text>Province: {rajaongkir.destination_details.province}</Text>
+                  <Text/>
+                  <Text style={styles.labels}>Weight</Text>
+                  <Text/>
+                  <Text>{rajaongkir.query.weight} Gram</Text>
+                  <Text/>
+                  <Text style={styles.labels}>Courier</Text>
+                  <Text/>
+                  <Text>{rajaongkir.results[0].name}</Text>
+                  <Text/>
+                  <Text style={styles.labels}>Result</Text>
+                  { result }
+                  </ScrollView>
+                </Body>
+              </CardItem>
+              <CardItem footer>
+              </CardItem>
+           </Card>
+          </Content>
+        </Container>
+      );
+    }else {
+      return (
+        <Spinner/>
+      )
+    }
   }
 }
 
@@ -102,7 +105,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20
   },
   labels: {
     textAlign: 'center',
