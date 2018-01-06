@@ -14,9 +14,6 @@ const provinceFrom = [];
 const cityFrom = [];
 const cityTo = [];
 
-const _statusUpdateFromProvince = false;
-const _statusUpdateToProvince = false;
-
 export default class CekOngkir extends React.Component {
 
 
@@ -42,8 +39,37 @@ export default class CekOngkir extends React.Component {
   * HANDLE PRESS
   */
   _updateFromProvince = (province) => {
-    _statusUpdateFromProvince = true;
-     this.setState({ from_province: province });
+   this.setState({ from_province: province });
+
+
+   let urlGetCity = "http://api.rajaongkir.com/starter/city?province="+province;
+
+   axios.get(urlGetCity, {
+     'headers': { 'key': '3f25c68be23a3e3d7e46cab0e7256503' }
+   })
+   .then(function (response) {
+     let city_ = response.data.rajaongkir.results;
+     cityFrom = [];
+
+     let selectCityFrom = true;
+     console.log('jalan');
+
+     city_.forEach((i) => {
+       cityFrom.push({label: i.city_name, value: i.city_id})
+
+       if (selectCityFrom){
+         this.setState({ from_city: i.city_id });
+         selectCityFrom = false;
+       }
+
+     })
+
+     this.setState({ cityFromLoaded: true });
+
+   }.bind(this))
+   .catch(function (error) {
+     console.log(error);
+   });
   }
 
   _updateFromCity = (city) => {
@@ -51,8 +77,36 @@ export default class CekOngkir extends React.Component {
   }
 
   _updateToProvince = (province) => {
-    _statusUpdateToProvince = true;
      this.setState({ to_province: province });
+
+
+     let urlGetCity = "http://api.rajaongkir.com/starter/city?province="+province;
+
+     axios.get(urlGetCity, {
+       'headers': { 'key': '3f25c68be23a3e3d7e46cab0e7256503' }
+     })
+     .then(function (response) {
+       let city_ = response.data.rajaongkir.results;
+       cityTo = [];
+
+       let selectCityTo = true;
+
+       city_.forEach((i) => {
+         cityTo.push({label: i.city_name, value: i.city_id})
+
+         if (selectCityTo){
+           this.setState({ to_city: i.city_id });
+           selectCityTo = false;
+         }
+
+       })
+
+       this.setState({ cityToLoaded: true });
+
+     }.bind(this))
+     .catch(function (error) {
+       console.log(error);
+     });
   }
 
   _updateToCity = (city) => {
@@ -157,39 +211,6 @@ export default class CekOngkir extends React.Component {
 
   /* render city */
   _renderSelectCityFrom() {
-    if (this.state.from_province) {
-
-      if (_statusUpdateFromProvince) {
-        let urlGetCity = "http://api.rajaongkir.com/starter/city?province="+this.state.from_province;
-
-        axios.get(urlGetCity, {
-          'headers': { 'key': '3f25c68be23a3e3d7e46cab0e7256503' }
-        })
-        .then(function (response) {
-          let city_ = response.data.rajaongkir.results;
-          cityFrom = [];
-
-          let selectCityFrom = true;
-
-          city_.forEach((i) => {
-            cityFrom.push({label: i.city_name, value: i.city_id})
-
-            if (selectCityFrom){
-              this.setState({ from_city: i.city_id });
-              selectCityFrom = false;
-            }
-
-          })
-
-          this.setState({ cityFromLoaded: true });
-          _statusUpdateFromProvince = false;
-
-        }.bind(this))
-        .catch(function (error) {
-          console.log(error);
-        });
-      }
-
       if (this.state.cityFromLoaded) {
         return(
           <View>
@@ -209,9 +230,6 @@ export default class CekOngkir extends React.Component {
       }else{
         return null;
       }
-    }else{
-      return null;
-    }
   }
 
   /* render province */
@@ -241,58 +259,22 @@ export default class CekOngkir extends React.Component {
 
   /* render city */
   _renderSelectCityTo() {
-    if (this.state.to_province) {
-
-      if (_statusUpdateToProvince) {
-        let urlGetCity = "http://api.rajaongkir.com/starter/city?province="+this.state.to_province;
-
-        axios.get(urlGetCity, {
-          'headers': { 'key': '3f25c68be23a3e3d7e46cab0e7256503' }
-        })
-        .then(function (response) {
-          let city_ = response.data.rajaongkir.results;
-          cityTo = [];
-
-          let selectCityTo = true;
-
-          city_.forEach((i) => {
-            cityTo.push({label: i.city_name, value: i.city_id})
-
-            if (selectCityTo){
-              this.setState({ to_city: i.city_id });
-              selectCityTo = false;
-            }
-
-          })
-
-          this.setState({ cityToLoaded: true });
-          _statusUpdateToProvince = false;
-
-        }.bind(this))
-        .catch(function (error) {
-          console.log(error);
-        });
-      }
-
-      if (this.state.cityToLoaded) {
-        return(
-          <View>
-          <Text>City </Text>
-          <Picker
-            mode="dropdown"
-            placeholder = "Dari Province"
-            headerStyle={{ backgroundColor: "#b95dd3" }}
-            headerBackButtonTextStyle={{ color: "#fff" }}
-            headerTitleStyle={{ color: "#fff" }}
-            selectedValue = {this.state.to_city}
-            onValueChange = {this._updateToCity}>
-            { cityTo.map((eventType, index) => <Picker.Item key={index} {...eventType} />) }
-          </Picker>
-          </View>
-        )
-      }else{
-        return null;
-      }
+    if (this.state.cityToLoaded) {
+      return(
+        <View>
+        <Text>City </Text>
+        <Picker
+          mode="dropdown"
+          placeholder = "Dari Province"
+          headerStyle={{ backgroundColor: "#b95dd3" }}
+          headerBackButtonTextStyle={{ color: "#fff" }}
+          headerTitleStyle={{ color: "#fff" }}
+          selectedValue = {this.state.to_city}
+          onValueChange = {this._updateToCity}>
+          { cityTo.map((eventType, index) => <Picker.Item key={index} {...eventType} />) }
+        </Picker>
+        </View>
+      )
     }else{
       return null;
     }
