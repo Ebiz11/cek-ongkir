@@ -1,16 +1,33 @@
 import React, {Component} from 'react';
 import { NavigationActions } from 'react-navigation';
 import { View, Text, Picker, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { Container, Header, Left, Body, Right, Button, Icon, Title, Form, Content, Label, Input, Item as FormItem, Spinner } from 'native-base';
+
+import { Container,
+  Header,
+  Left,
+  Body,
+  Right,
+  Button,
+  Icon,
+  Title,
+  Form,
+  Content,
+  Label,
+  Input,
+  Item as FormItem,
+  Spinner } from 'native-base';
 
 import { Font } from 'expo';
 
 const Item = Picker.Item;
 
+/* axios */
 const axios = require('axios');
 
-const provinceFrom = [];
+/* data province */
+const province = [];
 
+/* data city */
 const cityFrom = [];
 const cityTo = [];
 
@@ -20,9 +37,10 @@ export default class CekOngkir extends React.Component {
   constructor(props) {
     super(props);
 
+    /* set state */
     this.state = {
       fontLoaded: false,
-      provinceLoaded: false,
+      loaded: false,
       cityFromLoaded: false,
       cityToLoaded: false,
       from_province: 1,
@@ -33,34 +51,40 @@ export default class CekOngkir extends React.Component {
       courier : 'jne',
       weight: '1000'
     }
+
   }
 
   /*
   * HANDLE PRESS
   */
   _updateFromProvince = (province) => {
+
    this.setState({ from_province: province });
 
-
+   /* get city */
    let urlGetCity = "http://api.rajaongkir.com/starter/city?province="+province;
 
    axios.get(urlGetCity, {
      'headers': { 'key': '3f25c68be23a3e3d7e46cab0e7256503' }
    })
    .then(function (response) {
+
+     /* response */
      let city_ = response.data.rajaongkir.results;
+
      cityFrom = [];
 
      let selectCityFrom = true;
-     console.log('jalan');
 
      city_.forEach((i) => {
        cityFrom.push({label: i.city_name, value: i.city_id})
 
+        /* set state city */
        if (selectCityFrom){
          this.setState({ from_city: i.city_id });
          selectCityFrom = false;
        }
+       /* -- */
 
      })
 
@@ -118,6 +142,7 @@ export default class CekOngkir extends React.Component {
   }
 
   _handleCek = () => {
+    this.setState({ loaded: false });
 
     let data = {
       origin: this.state.from_city,
@@ -137,6 +162,8 @@ export default class CekOngkir extends React.Component {
 
     axios.post('https://api.rajaongkir.com/starter/cost', data, headers)
     .then(function (response) {
+
+      this.setState({ loaded: true });
 
       let navigateAction = NavigationActions.navigate({
         routeName: 'Result',
@@ -171,10 +198,10 @@ export default class CekOngkir extends React.Component {
       let province_ = response.data.rajaongkir.results;
 
       province_.forEach((i) => {
-        provinceFrom.push({label: i.province, value: i.province_id})
+        province.push({label: i.province, value: i.province_id})
       })
 
-      this.setState({ provinceLoaded: true });
+      this.setState({ loaded: true });
 
     }.bind(this))
     .catch(function (error) {
@@ -187,7 +214,7 @@ export default class CekOngkir extends React.Component {
   /* render province */
   _renderSelectProvinceFrom() {
 
-    if (this.state.provinceLoaded) {
+    if (this.state.loaded) {
       return (
         <View>
         <Text> Province </Text>
@@ -199,7 +226,7 @@ export default class CekOngkir extends React.Component {
           headerTitleStyle={{ color: "#fff" }}
           selectedValue = {this.state.from_province}
           onValueChange = {this._updateFromProvince}>
-          { provinceFrom.map((eventType, index) => <Picker.Item key={index} {...eventType} />) }
+          { province.map((eventType, index) => <Picker.Item key={index} {...eventType} />) }
         </Picker>
         </View>
       )
@@ -235,7 +262,7 @@ export default class CekOngkir extends React.Component {
   /* render province */
   _renderSelectProvinceTo() {
 
-    if (this.state.provinceLoaded) {
+    if (this.state.loaded) {
       return (
         <View>
         <Text> Province </Text>
@@ -247,7 +274,7 @@ export default class CekOngkir extends React.Component {
           headerTitleStyle={{ color: "#fff" }}
           selectedValue = {this.state.to_province}
           onValueChange = {this._updateToProvince}>
-          { provinceFrom.map((eventType, index) => <Picker.Item key={index} {...eventType} />) }
+          { province.map((eventType, index) => <Picker.Item key={index} {...eventType} />) }
         </Picker>
         </View>
       )
@@ -304,7 +331,7 @@ export default class CekOngkir extends React.Component {
       <Container>
 
       {
-        this.state.provinceLoaded ? (
+        this.state.loaded ? (
             <View>
             <ScrollView>
             <View style={styles.container}>
