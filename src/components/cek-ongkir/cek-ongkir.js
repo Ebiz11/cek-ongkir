@@ -142,7 +142,6 @@ export default class CekOngkir extends React.Component {
   }
 
   _handleCek = () => {
-    this.setState({ loaded: false });
 
     let data = {
       origin: this.state.from_city,
@@ -155,28 +154,14 @@ export default class CekOngkir extends React.Component {
       'headers': { 'key': '3f25c68be23a3e3d7e46cab0e7256503'}
     }
 
-    /*
-    * axios post
-    * axios(url, params, header)
-    */
+    let navigateAction = NavigationActions.navigate({
+      routeName: 'Result',
+      params: {data: data, headers: headers},
+      action: NavigationActions.navigate('Result')
+    })
 
-    axios.post('https://api.rajaongkir.com/starter/cost', data, headers)
-    .then(function (response) {
+    this.props.navigation.dispatch(navigateAction)
 
-      this.setState({ loaded: true });
-
-      let navigateAction = NavigationActions.navigate({
-        routeName: 'Result',
-        params: response.data,
-        action: NavigationActions.navigate('Result')
-      })
-      this.props.navigation.dispatch(navigateAction)
-    }.bind(this))
-    .catch(function (error) {
-      console.log(error);
-    });
-
-    // this.props.navigation.navigate('Result');
   }
 
   async componentWillMount() {

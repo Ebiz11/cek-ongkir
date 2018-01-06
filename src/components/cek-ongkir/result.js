@@ -1,89 +1,97 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Button, ScrollView } from 'react-native';
 
-import { Container, Header, Content, Card, CardItem, Text, Body } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Text, Body, Spinner } from 'native-base';
 
-const result = [];
+/* axios */
+const axios = require('axios');
+const rajaongkir = [];
+
 export default class Result extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      loaded : false
+    }
   }
 
-  dataResult(){
-    console.log(this.props.navigation.state.params.rajaongkir);
-    result = [];
+  componentWillMount(){
+    let data = this.props.navigation.state.params.data;
+    let headers = this.props.navigation.state.params.headers;
 
-    for (var i = 0; i < this.props.navigation.state.params.rajaongkir.results[0].costs.length; i++) {
-      result.push(
-        <View key = {i}>
-          <Text/>
-          <Text>Service: {this.props.navigation.state.params.rajaongkir.results[0].costs[i].service}</Text>
-          <Text>Description: {this.props.navigation.state.params.rajaongkir.results[0].costs[i].description}</Text>
-          <Text>Rp.{this.props.navigation.state.params.rajaongkir.results[0].costs[i].cost[0].value}</Text>
-          <Text>Etd: {this.props.navigation.state.params.rajaongkir.results[0].costs[i].cost[0].etd}</Text>
-          <Text/>
-          <Text/>
-        </View>
-        )
-    }
-
-    if (result.length == 0) {
-        return(
-          <View>
-            <Text> No Data </Text>
-          </View>
-        )
-    }else {
-
-      return(
-        <View>
-          {result}
-        </View>
-      )
-    }
-
+    axios.post('https://api.rajaongkir.com/starter/cost', data, headers)
+    .then(function (response) {
+      rajaongkir = response.data.rajaongkir;
+      this.setState({ loaded: true });
+    }.bind(this))
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
+    let result = [];
+
+    if (this.state.loaded) {
+
+      for (var i = 0; i < rajaongkir.results[0].costs.length; i++) {
+        result.push(
+          <View key = {i}>
+            <Text/>
+            <Text>Service: {rajaongkir.results[0].costs[i].service}</Text>
+            <Text>Description: {rajaongkir.results[0].costs[i].description}</Text>
+            <Text>Rp.{rajaongkir.results[0].costs[i].cost[0].value}</Text>
+            <Text>Etd: {rajaongkir.results[0].costs[i].cost[0].etd}</Text>
+            <Text/>
+            <Text/>
+          </View>
+          )
+      }
+    }
 
     return (
       <Container>
-        <Content>
-          <Card>
-            <CardItem header>
-            </CardItem>
-            <CardItem>
-              <Body>
-                <ScrollView>
-                <Text style={styles.labels}>Origin</Text>
-                <Text/>
-                <Text>City: {this.props.navigation.state.params.rajaongkir.origin_details.city_name}</Text>
-                <Text>Province: {this.props.navigation.state.params.rajaongkir.origin_details.province}</Text>
-                <Text/>
-                <Text style={styles.labels}>Destination</Text>
-                <Text/>
-                <Text>City: {this.props.navigation.state.params.rajaongkir.destination_details.city_name}</Text>
-                <Text>Province: {this.props.navigation.state.params.rajaongkir.destination_details.province}</Text>
-                <Text/>
-                <Text style={styles.labels}>Weight</Text>
-                <Text/>
-                <Text>{this.props.navigation.state.params.rajaongkir.query.weight} Gram</Text>
-                <Text/>
-                <Text style={styles.labels}>Courier</Text>
-                <Text/>
-                <Text>{this.props.navigation.state.params.rajaongkir.results[0].name}</Text>
-                <Text/>
-                <Text style={styles.labels}>Result:</Text>
-
-                {this.dataResult()}
-
-                </ScrollView>
-              </Body>
-            </CardItem>
-            <CardItem footer>
-            </CardItem>
-         </Card>
-        </Content>
+        {
+          this.state.loaded? (
+            <Content>
+              <Card>
+                <CardItem header>
+                </CardItem>
+                <CardItem>
+                  <Body>
+                    <ScrollView>
+                    <Text style={styles.labels}>Origin</Text>
+                    <Text/>
+                    <Text>City: {rajaongkir.origin_details.city_name}</Text>
+                    <Text>Province: {rajaongkir.origin_details.province}</Text>
+                    <Text/>
+                    <Text style={styles.labels}>Destination</Text>
+                    <Text/>
+                    <Text>City: {rajaongkir.destination_details.city_name}</Text>
+                    <Text>Province: {rajaongkir.destination_details.province}</Text>
+                    <Text/>
+                    <Text style={styles.labels}>Weight</Text>
+                    <Text/>
+                    <Text>{rajaongkir.query.weight} Gram</Text>
+                    <Text/>
+                    <Text style={styles.labels}>Courier</Text>
+                    <Text/>
+                    <Text>{rajaongkir.results[0].name}</Text>
+                    <Text/>
+                    <Text style={styles.labels}>Result:</Text>
+                    { result }
+                    </ScrollView>
+                  </Body>
+                </CardItem>
+                <CardItem footer>
+                </CardItem>
+             </Card>
+            </Content>
+          ) : (
+            <Spinner/>
+          )
+        }
       </Container>
     );
   }
