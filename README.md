@@ -1,4 +1,14 @@
+
+
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
+
+## Demo App
+Open in Expo:
+[open](http://prntscr.com/hx6353)
+
+Download Apk:
+[download](https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40lustria%2Fyour-app-slug-516a1ce9-f383-11e7-9e91-0a580a780608-signed.apk)
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 

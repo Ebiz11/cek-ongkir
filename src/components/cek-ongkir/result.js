@@ -23,6 +23,7 @@ export default class Result extends Component {
     axios.post('https://api.rajaongkir.com/starter/cost', data, headers)
     .then(function (response) {
       rajaongkir = response.data.rajaongkir;
+      console.log(rajaongkir);
       this.setState({ loaded: true });
     }.bind(this))
     .catch(function (error) {
