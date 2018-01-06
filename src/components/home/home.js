@@ -12,11 +12,11 @@ export default class Home extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>Welcome to Ebiz App</Text>
+        <Text>Welcome to Cek Ongkir App</Text>
         <Text></Text>
         <Button
           onPress={() => navigate('CekOngkir')}
-          title="Cek Ongkir"
+          title="Next"
         />
       </View>
     );
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20
+    padding: 20,
+    backgroundColor: '#fff'
   },
 });

@@ -55,6 +55,7 @@ export default class Result extends Component {
             <CardItem>
               <Body>
                 <ScrollView>
+                <Text style={styles.labels}>Origin</Text>
                 <Text/>
                 <Text>City: {this.props.navigation.state.params.rajaongkir.origin_details.city_name}</Text>
                 <Text>Province: {this.props.navigation.state.params.rajaongkir.origin_details.province}</Text>

@@ -169,8 +169,16 @@ export default class CekOngkir extends React.Component {
           let city_ = response.data.rajaongkir.results;
           cityFrom = [];
 
+          let selectCityFrom = true;
+
           city_.forEach((i) => {
             cityFrom.push({label: i.city_name, value: i.city_id})
+
+            if (selectCityFrom){
+              this.setState({ from_city: i.city_id });
+              selectCityFrom = false;
+            }
+
           })
 
           this.setState({ cityFromLoaded: true });
@@ -245,8 +253,16 @@ export default class CekOngkir extends React.Component {
           let city_ = response.data.rajaongkir.results;
           cityTo = [];
 
+          let selectCityTo = true;
+
           city_.forEach((i) => {
             cityTo.push({label: i.city_name, value: i.city_id})
+
+            if (selectCityTo){
+              this.setState({ to_city: i.city_id });
+              selectCityTo = false;
+            }
+
           })
 
           this.setState({ cityToLoaded: true });
@@ -365,7 +381,8 @@ const styles = StyleSheet.create({
       color: 'red'
    },
    container: {
-     padding: 10
+     padding: 10,
+     backgroundColor: '#fff',
     },
     buttonContainer:{
         backgroundColor: '#8d006b',
