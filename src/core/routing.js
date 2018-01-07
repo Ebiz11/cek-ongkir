@@ -28,6 +28,9 @@ const Route = {
     screen: CekOngkirScreen,
     navigationOptions: {
       headerTitle: 'Cek Ongkir',
+      headerStyle: {
+        marginTop: 24
+      },
     },
   },
 
@@ -35,6 +38,9 @@ const Route = {
     screen: ResultScreen,
     navigationOptions: {
       headerTitle: 'Result',
+      headerStyle: {
+        marginTop: 24
+      },
     },
   },
 }
