@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Button, ScrollView } from 'react-native';
+import { View, StyleSheet, Button, ScrollView, ImageBackground } from 'react-native';
 
 import { Container, Header, Content, Card, CardItem, Text, Body, Spinner } from 'native-base';
 
@@ -56,46 +56,58 @@ export default class Result extends Component {
       }
 
       return (
-        <Container>
-          <Content>
-            <Card>
-              <CardItem header>
-              </CardItem>
-              <CardItem>
-                <Body>
-                  <ScrollView>
-                  <Text style={styles.labels}>Origin</Text>
-                  <Text/>
-                  <Text>City: {rajaongkir.origin_details.city_name}</Text>
-                  <Text>Province: {rajaongkir.origin_details.province}</Text>
-                  <Text/>
-                  <Text style={styles.labels}>Destination</Text>
-                  <Text/>
-                  <Text>City: {rajaongkir.destination_details.city_name}</Text>
-                  <Text>Province: {rajaongkir.destination_details.province}</Text>
-                  <Text/>
-                  <Text style={styles.labels}>Weight</Text>
-                  <Text/>
-                  <Text>{rajaongkir.query.weight} Gram</Text>
-                  <Text/>
-                  <Text style={styles.labels}>Courier</Text>
-                  <Text/>
-                  <Text>{rajaongkir.results[0].name}</Text>
-                  <Text/>
-                  <Text style={styles.labels}>Result</Text>
-                  { result }
-                  </ScrollView>
-                </Body>
-              </CardItem>
-              <CardItem footer>
-              </CardItem>
-           </Card>
-          </Content>
-        </Container>
+        <View style={{flex:1}}>
+          <ImageBackground
+            style={{backgroundColor: 'transparent', flex:1}}
+            source={require('../../assets/img/background.png')}>
+            <Container>
+              <Content>
+                <Card>
+                  <CardItem header>
+                  </CardItem>
+                  <CardItem>
+                    <Body>
+                      <ScrollView>
+                      <Text style={styles.labels}>Origin</Text>
+                      <Text/>
+                      <Text>City: {rajaongkir.origin_details.city_name}</Text>
+                      <Text>Province: {rajaongkir.origin_details.province}</Text>
+                      <Text/>
+                      <Text style={styles.labels}>Destination</Text>
+                      <Text/>
+                      <Text>City: {rajaongkir.destination_details.city_name}</Text>
+                      <Text>Province: {rajaongkir.destination_details.province}</Text>
+                      <Text/>
+                      <Text style={styles.labels}>Weight</Text>
+                      <Text/>
+                      <Text>{rajaongkir.query.weight} Gram</Text>
+                      <Text/>
+                      <Text style={styles.labels}>Courier</Text>
+                      <Text/>
+                      <Text>{rajaongkir.results[0].name}</Text>
+                      <Text/>
+                      <Text style={styles.labels}>Result</Text>
+                      { result }
+                      </ScrollView>
+                    </Body>
+                  </CardItem>
+                  <CardItem footer>
+                  </CardItem>
+               </Card>
+              </Content>
+            </Container>
+          </ImageBackground>
+        </View>
       );
     }else {
       return (
-        <Spinner/>
+        <View style={{flex:1}}>
+          <ImageBackground
+            style={{backgroundColor: 'transparent', flex:1, padding: 20, justifyContent: 'center',}}
+            source={require('../../assets/img/background.png')}>
+            <Spinner/>
+          </ImageBackground>
+        </View>
       )
     }
   }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { NavigationActions } from 'react-navigation';
-import { View, Text, Picker, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text, Picker, StyleSheet, TouchableOpacity, ScrollView, Alert, ImageBackground } from 'react-native';
 
 import { Container,
   Header,
@@ -313,11 +313,11 @@ export default class CekOngkir extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <Container>
+      <View style={{flex:1}}>
 
       {
         this.state.loaded ? (
-            <View>
+            <Container>
             <ScrollView>
             <View style={styles.container}>
             <Form>
@@ -359,10 +359,15 @@ export default class CekOngkir extends React.Component {
 
             </View>
             </ScrollView>
-            </View>
-        ) : <View style={styles.container}><Spinner/></View>
+            </Container>
+        ) :
+              <ImageBackground
+                style={{backgroundColor: 'transparent', flex:1, padding: 20, justifyContent: 'center',}}
+                source={require('../../assets/img/background.png')}>
+                <Spinner/>
+              </ImageBackground>
       }
-    </Container>
+    </View>
 
       )
   }
