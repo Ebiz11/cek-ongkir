@@ -18,10 +18,16 @@ const HomeScreen = ({navigation}) => (
 const Route = {
   Index : {
     screen: HomeScreen,
+    navigationOptions: {
+      header: null
+    }
   },
 
   Home: {
-    screen: HomeScreen
+    screen: HomeScreen,
+    navigationOptions: {
+      header: null
+    }
   },
 
   CekOngkir: {
