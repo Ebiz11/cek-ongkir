@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { NavigationActions } from 'react-navigation';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { View, Text, Picker, StyleSheet, TouchableOpacity, ScrollView, Alert, ImageBackground } from 'react-native';
 
 import { Container,
@@ -353,9 +354,7 @@ export default class CekOngkir extends React.Component {
             <TouchableOpacity style={styles.buttonContainer} onPress={() => this._handleCek()}>
                 <Text  style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
-            <Text/><Text/><Text/><Text/><Text/><Text/>
-            <Text/><Text/><Text/><Text/><Text/><Text/>
-            <Text/><Text/><Text/><Text/><Text/><Text/>
+            <KeyboardSpacer/>
 
             </View>
             </ScrollView>
