@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button, TouchableOpacity, ImageBackground } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Button, TouchableOpacity, ImageBackground } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import { Thumbnail } from 'native-base';
 
 export default class Home extends Component {
@@ -12,7 +13,8 @@ export default class Home extends Component {
     const { navigate } = this.props.navigation;
 
     return (
-        <View style={{flex:1}}>
+
+      <View style={{flex:1}}>
         <ImageBackground
           style={styles.container}
           source={require('../../assets/img/background.png')}>

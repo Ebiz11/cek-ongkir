@@ -1,10 +1,10 @@
 import React from 'react';
-import Setup from './src/core/setup/';
+import Main from './src/core/main';
 
 export default class App extends React.Component {
   render() {
     return (
-      <Setup/>
+      <Main/>
       )
   }
 }

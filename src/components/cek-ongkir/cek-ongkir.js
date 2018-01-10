@@ -319,6 +319,7 @@ export default class CekOngkir extends React.Component {
       {
         this.state.loaded ? (
             <Container>
+            <Header/>
             <ScrollView>
             <View style={styles.container}>
             <Form>
@@ -360,11 +361,14 @@ export default class CekOngkir extends React.Component {
             </ScrollView>
             </Container>
         ) :
+            <View style={{flex:1}}>
+            <Header/>
               <ImageBackground
                 style={{backgroundColor: 'transparent', flex:1, padding: 20, justifyContent: 'center',}}
                 source={require('../../assets/img/background.png')}>
                 <Spinner/>
               </ImageBackground>
+            </View>
       }
     </View>
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import Home from '../components/home/home';
-import CekOngkir from '../components/cek-ongkir/cek-ongkir';
-import Result from '../components/cek-ongkir/result';
+import Home from './home';
+import CekOngkir from './cek-ongkir';
+import Result from './result';
 
 const ResultScreen = ({navigation}) => (
     <Result navigation = {navigation}/>
@@ -15,7 +15,7 @@ const HomeScreen = ({navigation}) => (
     <Home navigation = {navigation}/>
 );
 
-const Route = {
+const Routes = {
   Index : {
     screen: HomeScreen,
     navigationOptions: {
@@ -51,4 +51,4 @@ const Route = {
   },
 }
 
-export default Route;
+export default Routes;

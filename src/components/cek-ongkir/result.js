@@ -57,14 +57,13 @@ export default class Result extends Component {
 
       return (
         <View style={{flex:1}}>
+        <Header/>
           <ImageBackground
             style={{backgroundColor: 'transparent', flex:1}}
             source={require('../../assets/img/background.png')}>
             <Container>
               <Content>
                 <Card>
-                  <CardItem header>
-                  </CardItem>
                   <CardItem>
                     <Body>
                       <ScrollView>
@@ -102,6 +101,7 @@ export default class Result extends Component {
     }else {
       return (
         <View style={{flex:1}}>
+        <Header/>
           <ImageBackground
             style={{backgroundColor: 'transparent', flex:1, padding: 20, justifyContent: 'center',}}
             source={require('../../assets/img/background.png')}>
